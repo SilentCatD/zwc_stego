@@ -1,8 +1,17 @@
 import random
 
 
+def to_bits(s: str) -> str:
+    result: str = ""
+    for c in s:
+        bits = bin(ord(c))[2:]
+        bits = bits.zfill(8)
+        result += bits
+    return result
+
+
 def key_gen(msg: str, key_file: str) -> str:
-    msg_len = len(msg)
+    msg_len = len(to_bits(msg))
     key = random.getrandbits(msg_len)
     key = format(key, '0b')
     with open(key_file, 'w') as f:
